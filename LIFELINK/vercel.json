@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/server/server.js" },
+    { "src": "/about", "dest": "/client/pages/about.html" },
+    { "src": "/login", "dest": "/client/pages/login.html" },
+    { "src": "/register", "dest": "/client/pages/register.html" },
+    { "src": "/profile", "dest": "/client/pages/profile.html" },
+    { "src": "/donate", "dest": "/client/pages/donate.html" },
+    { "src": "/request", "dest": "/client/pages/request.html" },
+    { "src": "/css/(.*)", "dest": "/client/css/$1" },
+    { "src": "/js/(.*)", "dest": "/client/js/$1" },
+    { "src": "/assets/(.*)", "dest": "/client/assets/$1" },
+    { "src": "/", "dest": "/client/pages/index.html" },
+    { "src": "/(.*)", "dest": "/server/server.js" }
+  ]
+}

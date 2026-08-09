@@ -81,22 +81,19 @@ if (MONGODB_URI) {
         useUnifiedTopology: true
     }).then(() => {
         console.log("✅ Connected to MongoDB");
-        app.listen(PORT, () => {
-            console.log(`\n✅ Server running on http://localhost:${PORT}`);
-            console.log(`   Open http://localhost:${PORT} in your browser\n`);
-        });
     }).catch((err) => {
         console.error("❌ MongoDB connection error:", err.message);
-        console.log("\n⚠️  Starting server without database connection...");
-        app.listen(PORT, () => {
-            console.log(`\n✅ Server running on http://localhost:${PORT}`);
-            console.log(`   ⚠️  Database not connected - some features may not work\n`);
-        });
     });
 } else {
     console.log("\n⚠️  No MongoDB URI provided - starting without database...");
+}
+
+// Only start the server locally, Vercel handles the serverless execution
+if (process.env.NODE_ENV !== 'production') {
     app.listen(PORT, () => {
         console.log(`\n✅ Server running on http://localhost:${PORT}`);
-        console.log(`   ⚠️  Database not connected - some features may not work\n`);
+        console.log(`   Open http://localhost:${PORT} in your browser\n`);
     });
 }
+
+module.exports = app;
